@@ -55,6 +55,11 @@ struct ContentView: View {
             CapturedPieceView(game: game, capturedPieces: game.capturedWhitePieces, showBlack: false)
                 .padding(.bottom, 30)
             
+            // LazyVGrid doesn't work well with a chessboard in landscape. The good news is that it makes the squares as
+            // wide as possible. The bad nes is that chessboard squares are square. Which means that they get really tall
+            // as well. Not good in landscape mode. When setting up the GridItem below you could specify a small max width.
+            // If you make it small enough it will fit. However, really small. In portrait as well as landscape. You could
+            // set a max width depending on the orientation, but it generally won't look good in landscape anyway.
             let columns = Array(repeating: GridItem(.flexible(), spacing: 0), count: 8)
             LazyVGrid(columns: columns, spacing: 0, content:  {
                 ForEach(0..<64) { i in
